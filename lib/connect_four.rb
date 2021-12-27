@@ -9,3 +9,4 @@ end
 
 require_relative './connect_four/cell'
 require_relative './connect_four/board'
+require_relative './connect_four/circle'

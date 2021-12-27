@@ -19,5 +19,12 @@ module ConnectFour
         end
       end
     end
+
+    context '#grid' do
+      it 'returns the grid' do
+        board = Board.new(grid: "\u25cb")
+        expect(board.grid).to eq "\u25cb"
+      end
+    end
   end
 end
