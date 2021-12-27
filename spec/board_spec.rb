@@ -12,6 +12,12 @@ module ConnectFour
       it 'sets the grid with 6 rows by default' do
         expect(board.grid.size).to eq(6)
       end
+
+      it 'create 7 things in each row (column) by default' do
+        board.grid.each do |row|
+          expect(row.size).to eq(7)
+        end
+      end
     end
   end
 end

@@ -7,7 +7,7 @@ module ConnectFour
     end
 
     def default_grid
-      Array.new(6) { Array.new(6) { Cell.new } }
+      Array.new(6) { Array.new(7) { Cell.new } }
     end
   end
 end
