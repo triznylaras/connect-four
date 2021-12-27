@@ -8,3 +8,4 @@ module ConnectFour
 end
 
 require_relative './connect_four/cell'
+require_relative './connect_four/board'
