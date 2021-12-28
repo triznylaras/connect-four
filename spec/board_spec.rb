@@ -24,8 +24,8 @@ module ConnectFour
 
     context '#grid' do
       it 'returns the grid' do
-        board = Board.new(grid: "\u25cb")
-        expect(board.grid).to eq "\u25cb"
+        board = Board.new(grid: blue_circle)
+        expect(board.grid).to eq blue_circle
       end
     end
 
