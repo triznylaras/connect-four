@@ -1,7 +1,9 @@
 require 'spec_helper'
+require_relative '../lib/connect_four/circle'
 
-module ConnectFour
+module ConnectFour  
   describe Board do
+    include Circle
     let(:board) { Board.new }
 
     context '#initialize' do
@@ -24,6 +26,23 @@ module ConnectFour
       it 'returns the grid' do
         board = Board.new(grid: "\u25cb")
         expect(board.grid).to eq "\u25cb"
+      end
+    end
+
+    context '#get_cell' do
+      it 'returns the cell based on the (x, y) coordinate' do
+        grid = [['', '', ''], ['', '', ''], ['', 'something', '']]
+        board = Board.new(grid: grid)
+        expect(board.get_cell(1, 2)).to eq 'something'
+      end
+    end
+
+    context '#set_cell' do
+      it 'updates the value of the cell object at a (x, y) coordinate' do
+        grid = [['', Cell.new(yellow_circle), ''], ['', '', ''], ['', '', '']]
+        board = Board.new(grid: grid)
+        board.set_cell(1, 0, blue_circle)
+        expect(board.get_cell(1, 0).value).to eq blue_circle
       end
     end
   end
