@@ -14,12 +14,12 @@ module ConnectFour
       Array.new(6) { Array.new(7) { Cell.new(empty_circle) } }
     end
 
-    def get_cell(x_ax, y_ax)
-      grid[y_ax][x_ax]
+    def get_cell(row, column)
+      grid[row][column]
     end
 
-    def set_cell(x_ax, y_ax, value)
-      grid[y_ax][x_ax].value = value
+    def set_cell(row, column, value)
+      grid[row][column].value = value
     end
   end
 end
