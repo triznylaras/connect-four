@@ -33,7 +33,7 @@ module ConnectFour
       it 'returns the cell based on the (x, y) coordinate' do
         grid = [['', '', ''], ['', '', ''], ['', 'something', '']]
         board = Board.new(grid: grid)
-        expect(board.get_cell(1, 2)).to eq 'something'
+        expect(board.get_cell(2, 1)).to eq 'something'
       end
     end
 
@@ -41,8 +41,8 @@ module ConnectFour
       it 'updates the value of the cell object at a (x, y) coordinate' do
         grid = [['', Cell.new(yellow_circle), ''], ['', '', ''], ['', '', '']]
         board = Board.new(grid: grid)
-        board.set_cell(1, 0, blue_circle)
-        expect(board.get_cell(1, 0).value).to eq blue_circle
+        board.set_cell(0, 1, blue_circle)
+        expect(board.get_cell(0, 1).value).to eq blue_circle
       end
     end
   end
