@@ -21,5 +21,29 @@ module ConnectFour
     def set_cell(row, column, value)
       grid[row][column].value = value
     end
+
+    def check_horizontal(row, column, value)
+      return if column > 3
+
+      grid[row][column] == value && grid[row][column + 1] == value && grid[row][column + 2] == value && grid[row][column + 3] == value
+    end
+
+    def check_vertical(row, column, value)
+      return if row > 2
+
+      grid[row][column] == value && grid[row + 1][column] == value && grid[row + 2][column] == value && grid[row + 3][column] == value
+    end
+
+    def check_left_diagonal(row, column, value)
+      return if column > 3
+
+      grid[row][column] == value && grid[row + 1][column + 1] == value && grid[row + 2][column + 2] == value && grid[row + 3][column + 3] == value
+    end
+
+    def check_right_diagonal(row, column, value)
+      return if column < 3
+
+      grid[row][column] == value && grid[row + 1][column - 1] == value && grid[row + 2][column - 2] == value && grid[row + 3][column - 3] == value
+    end
   end
 end
