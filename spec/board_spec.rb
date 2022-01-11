@@ -45,5 +45,69 @@ module ConnectFour
         expect(board.get_cell(0, 1).value).to eq blue_circle
       end
     end
+
+    context '#check_horizontal' do
+      let(:grid) { board.instance_variable_get(:@grid) }
+
+      before do
+        grid[0][1] = yellow_circle
+        grid[0][2] = yellow_circle
+        grid[0][3] = yellow_circle
+        grid[0][4] = yellow_circle
+      end
+
+      it 'returns true when matches' do
+        result = board.check_horizontal(0, 1, yellow_circle)
+        expect(result).to be true
+      end
+    end
+
+    context '#check_vertical' do
+      let(:grid) { board.instance_variable_get(:@grid) }
+
+      before do
+        grid[0][1] = blue_circle
+        grid[1][1] = blue_circle
+        grid[2][1] = blue_circle
+        grid[3][1] = blue_circle
+      end
+
+      it 'returns true when matches' do
+        result = board.check_vertical(0, 1, blue_circle)
+        expect(result).to be true
+      end
+    end
+
+    context '#check_left_diagonal' do
+      let(:grid) { board.instance_variable_get(:@grid) }
+
+      before do
+        grid[0][1] = blue_circle
+        grid[1][2] = blue_circle
+        grid[2][3] = blue_circle
+        grid[3][4] = blue_circle
+      end
+
+      it 'returns true when matches' do
+        result = board.check_left_diagonal(0, 1, blue_circle)
+        expect(result).to be true
+      end
+    end
+
+    context '#check_right_diagonal' do
+      let(:grid) { board.instance_variable_get(:@grid) }
+
+      before do
+        grid[0][4] = blue_circle
+        grid[1][3] = blue_circle
+        grid[2][2] = blue_circle
+        grid[3][1] = blue_circle
+      end
+
+      it 'returns true when matches' do
+        result = board.check_right_diagonal(0, 4, blue_circle)
+        expect(result).to be true
+      end
+    end
   end
 end
