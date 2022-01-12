@@ -1,10 +1,10 @@
 module ConnectFour
   class Player
-    attr_reader :color, :name
-    
-    def initialize(input)
-      @color = input.fetch(:color)
-      @name = input.fetch(:name)
+    attr_accessor :color, :name
+
+    def initialize(color)
+      @name = nil
+      @color = color
     end
   end
 end
