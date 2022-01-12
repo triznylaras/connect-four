@@ -1,5 +1,4 @@
 require_relative 'circle'
-require_relative 'cell'
 
 module ConnectFour
   class Board

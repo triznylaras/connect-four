@@ -7,7 +7,6 @@ module ConnectFour
   # Your code goes here...
 end
 
-require_relative './connect_four/cell'
 require_relative './connect_four/board'
 require_relative './connect_four/circle'
 require_relative './connect_four/game'
