@@ -7,17 +7,16 @@ module ConnectFour
 
     describe '#verify_input' do
       subject(:input_verification) { described_class.new }
+      let(:game_board) { input_verification.instance_variable_get(:@board) }
 
       context 'when player types valid input' do
-        valid_input = 0
+        valid_input = 1
         it 'returns true' do
           expect(input_verification.verify_input(valid_input)).to be true
         end
       end
 
       context 'when player types invalid value that is already occupied' do
-        let(:game_board) { input_verification.instance_variable_get(:@board) }
-
         before do
           game_board.grid[0][2] = 'X'
         end
