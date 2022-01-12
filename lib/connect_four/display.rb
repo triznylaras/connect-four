@@ -1,16 +1,15 @@
 module Display
   def introduction
-    <<~HEREDOC
+    puts <<~HEREDOC
       Welcome to Connect Four!
       This is a PvP game. Match the same colour in four consecutive cells to win!
       Goodluck!
-      Type any to continue:
+
     HEREDOC
-    gets.chomp
   end
 
   def ask_player_name(number)
-    "Enter player#{number} name: "
+    puts "Enter player #{number} name: "
     gets.chomp
   end
 

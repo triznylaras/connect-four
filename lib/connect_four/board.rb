@@ -1,4 +1,5 @@
 require_relative 'circle'
+require_relative 'cell'
 
 module ConnectFour
   class Board
@@ -6,20 +7,19 @@ module ConnectFour
 
     attr_reader :grid
 
-    def initialize(input = {})
-      @grid = input.fetch(:grid, default_grid)
+    def initialize
+      @grid = Array.new(6) { Array.new(7) { empty_circle } }
     end
 
-    def default_grid
-      Array.new(6) { Array.new(7) { Cell.new(empty_circle) } }
+    def display_board
+      @grid.each do |row|
+        puts row.join(' ')
+      end
+      puts (1..7).to_a.join(' ')
     end
 
-    def get_cell(row, column)
-      grid[row][column]
-    end
-
-    def set_cell(row, column, value)
-      grid[row][column].value = value
+    def update_board(row, column, value)
+      @grid[row][column] = value
     end
 
     def full_column?(input)
@@ -38,35 +38,35 @@ module ConnectFour
     def check_horizontal(row, column, value)
       return if column > 3
 
-      grid[row][column] == value && grid[row][column + 1] == value && grid[row][column + 2] == value && grid[row][column + 3] == value
+      @grid[row][column] == value && @grid[row][column + 1] == value && @grid[row][column + 2] == value && @grid[row][column + 3] == value
     end
 
     def check_vertical(row, column, value)
       return if row > 2
 
-      grid[row][column] == value && grid[row + 1][column] == value && grid[row + 2][column] == value && grid[row + 3][column] == value
+      @grid[row][column] == value && @grid[row + 1][column] == value && @grid[row + 2][column] == value && @grid[row + 3][column] == value
     end
 
     def check_left_diagonal(row, column, value)
       return if column > 3
 
-      grid[row][column] == value && grid[row + 1][column + 1] == value && grid[row + 2][column + 2] == value && grid[row + 3][column + 3] == value
+      @grid[row][column] == value && @grid[row + 1][column + 1] == value && @grid[row + 2][column + 2] == value && @grid[row + 3][column + 3] == value
     end
 
     def check_right_diagonal(row, column, value)
       return if column < 3
 
-      grid[row][column] == value && grid[row + 1][column - 1] == value && grid[row + 2][column - 2] == value && grid[row + 3][column - 3] == value
+      @grid[row][column] == value && @grid[row + 1][column - 1] == value && @grid[row + 2][column - 2] == value && @grid[row + 3][column - 3] == value
     end
 
-    def check_diagonals(row, column, symbol)
+    def check_diagonals(row, column, value)
       return unless row < 3
 
-      check_right_diagonal(row, column, symbol) || check_left_diagonal(row, column, symbol)
+      check_right_diagonal(row, column, value) || check_left_diagonal(row, column, value)
     end
 
-    def check_row(row, column, symbol)
-      check_horizontal(row, column, symbol) || check_vertical(row, column, symbol) || check_diagonals(row, column, symbol)
+    def check_row(row, column, value)
+      check_horizontal(row, column, value) || check_vertical(row, column, value) || check_diagonals(row, column, value)
     end
   end
 end
