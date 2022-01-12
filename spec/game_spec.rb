@@ -5,35 +5,68 @@ module ConnectFour
   describe Game do
     include Circle
 
-    let(:jane) { Player.new({ color: blue_circle, name: 'jane' }) }
-    let(:laras) { Player.new({ color: yellow_circle, name: 'laras' }) }
-    let(:game) { Game.new([jane, laras]) }
+    describe '#verify_input' do
+      subject(:input_verification) { described_class.new }
 
-    context '#initialize' do
-      before :each do
-        allow_any_instance_of(Array).to receive(:shuffle) { [laras, jane] }
+      context 'when player types valid input' do
+        valid_input = 0
+        it 'returns true' do
+          expect(input_verification.verify_input(valid_input)).to be true
+        end
       end
 
-      it 'randomly selects a current player' do
-        expect(game.current_player).to eq laras
+      context 'when player types invalid value that is already occupied' do
+        let(:game_board) { input_verification.instance_variable_get(:@board) }
+
+        before do
+          game_board.grid[0][2] = 'X'
+        end
+
+        it 'returns false' do
+          invalid_input = 2
+          expect(input_verification.verify_input(invalid_input)).to be false
+        end
       end
 
-      it 'randomly selects an other player' do
-        expect(game.other_player).to eq jane
+      context 'when player types invalid value greater than 7' do
+        it 'returns false' do
+          invalid_input = 8
+          expect(input_verification.verify_input(invalid_input)).to be false
+        end
+      end
+
+      context 'when player types invalid value less than 1' do
+        it 'returns false' do
+          invalid_input = -2
+          expect(input_verification.verify_input(invalid_input)).to be false
+        end
       end
     end
 
-    context '#switch_players' do
-      it 'will set @current_player to @other_player' do
-        other_player = game.other_player
-        game.switch_players
-        expect(game.current_player).to eq other_player
+    describe '#player_turn' do
+      subject(:turn_verification) { described_class.new }
+      let(:player1) { turn_verification.instance_variable_get(:@player1) }
+      let(:player2) { turn_verification.instance_variable_get(:@player2) }
+
+      before do
+        player1.name = 'Laras'
+        player2.name = 'Jane'
       end
 
-      it 'will set @other_player to @current_player' do
-        current_player = game.current_player
-        game.switch_players
-        expect(game.other_player).to eq current_player
+      context "when it is player1's turn" do
+        it 'returns player1' do
+          expect(turn_verification.player_turn.name).to eq(player1.name)
+        end
+      end
+
+      context "when it is player2's turn" do
+        before do
+          turn_verification.instance_variable_set(:@turn, 1)
+        end
+
+        it 'returns player2' do
+          expect(turn_verification.player_turn.name).to eq(player2.name)
+        end
       end
     end
   end
